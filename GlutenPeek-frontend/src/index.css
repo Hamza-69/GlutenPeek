@@ -1,0 +1,208 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 158 64% 52%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 158 64% 52%;
+
+    --radius: 0.5rem;
+
+    /* Custom gradients */
+    --gradient-light: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  }
+
+  .dark {
+    --background: 220 13% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 13% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 13% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 158 64% 52%;
+    --primary-foreground: 220 13% 8%;
+
+    --secondary: 217.2 32.6% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 15%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 15%;
+    --input: 217.2 32.6% 15%;
+    --ring: 158 64% 52%;
+
+    /* Dark mode gradients */
+    --gradient-light: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: var(--gradient-light);
+  }
+
+  /* Desktop sidebar spacing */
+  @media (min-width: 769px) {
+    main.with-sidebar {
+      margin-left: 5rem; /* Account for fixed sidebar */
+    }
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-gold-bg {
+    background: var(--gradient-gold);
+  }
+
+  .text-readable {
+    @apply text-foreground;
+  }
+
+  .text-readable-muted {
+    @apply text-muted-foreground;
+  }
+
+  .sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+
+  /* Chat container styling for mobile - using flex layout instead of fixed heights */
+  .chat-container-mobile {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-messages-mobile {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .chat-input-mobile {
+    flex-shrink: 0;
+    background: var(--background);
+    border-top: 1px solid var(--border);
+  }
+
+  /* Mobile navigation spacing and width fixes */
+  @media (max-width: 768px) {
+    .mobile-safe-area {
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    
+    /* Prevent content from being hidden behind mobile footer */
+    .mobile-content:not(.chatbot-content) {
+      padding-bottom: 6rem; /* Space for mobile navigation */
+    }
+    
+    /* Special handling for chatbot mobile content */
+    .mobile-content.chatbot-content {
+      height: calc(100vh - 4rem - 4rem); /* Full height minus header and mobile nav */
+      padding-bottom: 0;
+    }
+    
+    /* Global mobile width fixes */
+    * {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Prevent horizontal overflow */
+    body, html {
+      overflow-x: hidden;
+    }
+    
+    /* Ensure containers don't exceed viewport width */
+    .container, main, section, div {
+      max-width: 100vw;
+    }
+    
+    /* Fix for input elements that might overflow */
+    input, select, textarea {
+      max-width: 100%;
+      min-width: 0;
+    }
+    
+    /* Ensure flex items don't grow beyond container */
+    .flex > * {
+      min-width: 0;
+    }
+  }
+
+  /* Fixed desktop sidebar */
+  .desktop-sidebar-fixed {
+    position: fixed;
+    top: 4rem; /* Account for header height */
+    left: 0;
+    bottom: 0;
+    z-index: 30;
+  }
+}
